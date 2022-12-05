@@ -1,0 +1,23 @@
+.cmMsgText{
+    background:white;
+    padding:10px 15px 10px 15px;  
+    color:#666;
+    max-width:75%;
+    float:left;
+    margin-left:10px; 
+    position:relative;
+    margin-bottom:20px;
+    border-radius:30px;
+}
+
+.cmMsgText.invalid{
+    background: #5A5EB9;
+    padding:10px 15px 10px 15px;  
+    color: white;
+    max-width:75%;
+    float:right;
+    margin-left:10px; 
+    position:relative;
+    margin-bottom:20px;
+    border-radius:30px;
+}
