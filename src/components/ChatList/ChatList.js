@@ -1,4 +1,6 @@
 import { List, ListItem } from "@mui/material";
+import { Link, Outlet } from "react-router-dom";
+import { Card } from '@mui/material';
 import styles from "./ChatList.module.css";
 
 const chats = [
@@ -8,7 +10,7 @@ const chats = [
     },
     {
         name: "Chat_2",
-        id: "chat1"
+        id: "chat2"
     },
     {
         name: "Chat_3",
@@ -22,8 +24,20 @@ const chats = [
 
 export const ChatList = () => {
     return (
-        <List>
-            {chats.map((chat) => <ListItem key={chat.id} className={styles.chats}>{chat.name}</ListItem>)}
-        </List>
+        <>
+            <Card variant="outlined" sx={{ width: 320, display: 'flex', flexDirection: 'column' }}>
+                <div className={styles.chatBoxHeader}>
+                    <h3>Active Chats</h3>
+                </div>
+                <List>
+                    {chats.map((chat) => (
+                        <ListItem key={chat.id}>
+                            <Link to={`/chats/${chat.id}`}>{chat.name}</Link>
+                        </ListItem>
+                    ))}
+                </List>
+            </Card>
+            <Outlet />
+        </>
     );
 };

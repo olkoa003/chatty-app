@@ -1,4 +1,11 @@
-.chats{
-    color: black;
-    text-align: center;
-}
+.chatBoxHeader {
+    background: #5A5EB9;
+    height:70px;
+    width:350px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px; 
+    color:white;
+    text-align:center;
+    font-size:20px;
+    padding-top:17px;
+  }
