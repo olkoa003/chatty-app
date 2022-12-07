@@ -3,6 +3,7 @@ import { NotFound } from "../NotFound/NotFound";
 import { ChatList } from "../ChatList/ChatList";
 import { HomePage } from "../HomePage/HomePage";
 import { Chat } from "../Chat/Chat";
+import { Profile } from "../Profile/Profile";
 
 export const Router = () => {
     return (
@@ -23,8 +24,17 @@ export const Router = () => {
                     chats
                 </NavLink>
             </div>
+            <div>
+                <NavLink
+                    style={({ isActive }) => ({ color: isActive ? "green" : "grey" })}
+                    to="/profile"
+                >
+                    profile
+                </NavLink>
+            </div>
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="chats" element={<ChatList />}>
                     <Route path=":chatId" element={<Chat />} />
                 </Route>

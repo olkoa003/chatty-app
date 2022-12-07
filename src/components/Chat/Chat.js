@@ -1,8 +1,7 @@
 import { MessageList } from "../MessageList/MessageList";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form } from "../Form/Form";
-import { AUTHORS } from "../utils/constants";
-// import { useRef } from 'react';
+import { AUTHORS } from "../../utils/constants";
 import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
 import styles from "./Chat.module.css";
@@ -20,7 +19,7 @@ export const Chat = () => {
     chat4: [],
   });
 
-  // const messagesEnd = useRef();
+  const messagesEnd = useRef();
 
   const handleAddMessage = (text) => {
     sendMessage(text, AUTHORS.ME);
@@ -39,7 +38,7 @@ export const Chat = () => {
   };
 
   useEffect(() => {
-    // messagesEnd.current?.scrollIntoView();
+    messagesEnd.current?.scrollIntoView();
 
     let timeout;
     if (
@@ -54,10 +53,10 @@ export const Chat = () => {
     return () => clearTimeout(timeout);
   }, [messageList, chatId]);
 
-  // useEffect(() => {
-  //   console.log(messagesEnd);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    console.log(messagesEnd);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!messageList[chatId]) {
     return <Navigate to="/chats" replace />;
@@ -73,7 +72,7 @@ export const Chat = () => {
           <div className={styles.chatBoxBody}>
             <div className={styles.chatLogs}>
               <MessageList messages={messageList[chatId]} />
-              {/* <div ref={messagesEnd} /> */}
+              <div ref={messagesEnd} />
             </div>
             <Form onSubmit={handleAddMessage} />
           </div>

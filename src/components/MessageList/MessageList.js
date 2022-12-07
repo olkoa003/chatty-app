@@ -1,5 +1,5 @@
 import { Message } from "../Message/Message";
-import { AUTHORS } from "../utils/constants";
+import { AUTHORS } from "../../utils/constants";
 import "./MessageList.css"
 
 export const MessageList = ({ messages }) => {

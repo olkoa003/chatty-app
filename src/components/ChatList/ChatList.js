@@ -22,6 +22,14 @@ const chats = [
     },
 ];
 
+// const handleDeleteChat = (idToDelete) => {
+//   const newChats = chats.filter(chat => chat.id !== idToDelete);
+//   setChats(newChats);
+//   const newMessageList = { ...messageList };
+//   delete messageList[idToDelete];
+//   setMessageList(newMessageList)
+// }
+
 export const ChatList = () => {
     return (
         <>

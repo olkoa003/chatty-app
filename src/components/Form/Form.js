@@ -19,13 +19,14 @@ export const Form = ({ onSubmit }) => {
 
     useEffect(() => {
         textField.current?.focus();
+        console.log(textField);
     }, []);
 
     return (
         <div className={styles.chatInput}>
             <form onSubmit={handleSubmit}>
-                <input type="text" className={styles.chatInput2} placeholder="Send a message..." value={value} ref={textField} onChange={handleChange} required />
-                <button type="submit" className={styles.chatSubmit}><SendIcon sx={{ color: '#5A5EB9' }}/></button>
+                <input value={value} ref={textField} type="text" className={styles.chatInput2} placeholder="Send a message..." onChange={handleChange} required />
+                <button type="submit" className={styles.chatSubmit}><SendIcon sx={{ color: '#5A5EB9' }} /></button>
             </form>
         </div>
     );
