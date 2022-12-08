@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeShowName, CHANGE_NAME } from "../../store/profile/actions";
+import { changeShowName, CHANGE_NAME, VIEW_CHECKBOX } from "../../store/profile/actions";
 import { Form } from "../Form/Form";
+import styles from "./Profile.module.css";
+import { Button } from "@mui/material";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -8,6 +10,12 @@ export const Profile = () => {
 
     const handleChangeShowName = () => {
         dispatch(changeShowName);
+    };
+
+    const changeCheckbox = () => {
+        dispatch({
+            type: VIEW_CHECKBOX
+        });
     };
 
     const handleChangeName = (text) => {
@@ -22,10 +30,10 @@ export const Profile = () => {
             <h3>Profile</h3>
             <div>
                 {showName && <span>{name}</span>}
-                <input type="checkbox" />
-                <button onClick={handleChangeShowName}>Change show name</button>
+                <input type="checkbox" onChange={changeCheckbox} />
+                <Button variant="contained" onClick={handleChangeShowName}>Change show name</Button>
             </div>
-            <Form onSubmit={handleChangeName} />
+            <Form onSubmit={handleChangeName} className={styles.inputField} />
         </>
     );
 };
