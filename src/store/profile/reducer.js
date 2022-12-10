@@ -1,8 +1,7 @@
 import { CHANGE_NAME, CHANGE_SHOW_NAME, VIEW_CHECKBOX } from "./actions";
 
-
 const initialState = {
-  name: "Default",
+  name: "My Name",
   showName: false,
   viewCheckbox: false
 };
@@ -18,7 +17,7 @@ export const profileReducer = (state = initialState, action) => {
     case CHANGE_NAME: {
       return {
         ...state,
-        name: action.payload,
+        name: action.name,
       };
     }
     case VIEW_CHECKBOX: {

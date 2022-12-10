@@ -10,3 +10,8 @@ export const changeShowName = {
 export const viewCheckbox = {
   type: VIEW_CHECKBOX
 };
+
+export const changeName = (newName) => ({
+  type: CHANGE_NAME,
+  name: newName,
+});
