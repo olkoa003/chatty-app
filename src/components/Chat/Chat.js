@@ -6,13 +6,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
 import styles from "./Chat.module.css";
 import { Navigate, useParams } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { selectMessages } from "../../store/messages/selectors";
+import { addMessageWithThunk } from "../../store/messages/actions";
 import "../../App.module.css";
 
-export const Chat = ({messages , addMessage}) => {
+export const Chat = () => {
   const params = useParams();
-  // const navigate = useNavigate();
   const { chatId } = params;
-
+  const messages = useSelector(selectMessages);
+  const dispatch = useDispatch();
   const messagesEnd = useRef();
 
   const handleAddMessage = (text) => {
@@ -25,7 +28,7 @@ export const Chat = ({messages , addMessage}) => {
       author,
       id: `msg-${Date.now()}`,
     };
-    addMessage(chatId, newMsg);
+    dispatch(addMessageWithThunk(chatId, newMsg));
   };
 
   useEffect(() => {
@@ -35,10 +38,6 @@ export const Chat = ({messages , addMessage}) => {
   if (!messages[chatId]) {
     return <Navigate to="/chats" replace />;
   }
-
-  // useEffect(() => {
-  //   console.log(messagesEnd);
-  // }, []);
 
   return (
     <Fragment>
