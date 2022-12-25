@@ -1,6 +1,5 @@
 import React from "react";
 import styles from './Message.module.css';
-// import PropTypes from "prop-types";
 
 export const Message = ({ text, author }) => {
     return (
@@ -11,8 +10,3 @@ export const Message = ({ text, author }) => {
         </div>
     );
 }
-
-// Message.propTypes = {
-//     text: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.number]),
-//     author: PropTypes.string.isRequired,
-// };
