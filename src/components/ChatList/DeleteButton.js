@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteChat } from "../../store/chats/actions";
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 export const DeleteButton = ({ id }) => {
   const dispatch = useDispatch();
@@ -8,5 +9,5 @@ export const DeleteButton = ({ id }) => {
     dispatch(deleteChat(id));
   };
 
-  return <div onClick={handleDeleteChat}>X</div>;
+  return <div onClick={handleDeleteChat}><DeleteRoundedIcon /></div>;
 };

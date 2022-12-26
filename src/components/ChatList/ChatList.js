@@ -16,16 +16,19 @@ export const ChatList = () => {
         const newId = `chat-${Date.now()}`;
         dispatch(addChat(newId, newChatName));
     };
+    
     return (
         <>
-            <Card variant="outlined" sx={{ width: 320, display: 'flex', flexDirection: 'column' }}>
+            <Card variant="outlined" sx={{ width: 320, display: 'flex', flexDirection: 'column', margin: "20px" }}>
                 <div className={styles.chatBoxHeader}>
                     <h3>Active Chats</h3>
                 </div>
+
                 <List>
-                    {chats.map((chat) => (
+                    {chats.length === 0 ? <p className={styles.noactive}>Sorry, no active chats</p> :
+                    (chats.map((chat) => (
                         <ChatItem key={chat.id} chat={chat} />
-                    ))}
+                    )))}
                 </List>
                 <Form onSubmit={handleAddChat} />
             </Card>
@@ -33,3 +36,6 @@ export const ChatList = () => {
         </>
     );
 };
+
+
+

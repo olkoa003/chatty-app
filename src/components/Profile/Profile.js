@@ -1,92 +1,81 @@
 import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
-import { logout } from "../../services/firebase";
 import {
-  changeShowName,
-  CHANGE_NAME,
-  changeName,
+    changeShowName,
+    changeName,
 } from "../../store/profile/actions";
 import { selectName, selectShowName } from "../../store/profile/selectors";
 import { usePrev } from "../../utils/usePrev";
 import { Form } from "../Form/Form";
+import styles from './Profile.module.css';
+import Button from '@mui/material/Button';
 
 export const Profile = () => {
-  const dispatch = useDispatch();
-  // const { showName, name } = useSelector((state) => state);
-  const showName = useSelector(selectShowName, shallowEqual);
-  const name = useSelector(selectName);
+    const dispatch = useDispatch();
+    // const { showName, name } = useSelector((state) => state);
+    const showName = useSelector(selectShowName, shallowEqual);
+    const name = useSelector(selectName);
 
-  const handleChangeShowName = () => {
-    dispatch(changeShowName);
-  };
+    const handleChangeShowName = () => {
+        dispatch(changeShowName);
+    };
 
-  const handleChangeName = (text) => {
-    dispatch(changeName(text));
-  };
+    const handleChangeName = (text) => {
+        dispatch(changeName(text));
+    };
 
-  return (
-    <>
-      <h3>Profile</h3>
-      <div>
-        {showName && <span>{name}</span>}
-        <input type="checkbox" />
-        <button onClick={handleChangeShowName}>Change show name</button>
-      </div>
-      <Form onSubmit={handleChangeName} />
-    </>
-  );
+    return (
+        <>
+            <h3>Profile</h3>
+            <div>
+                {showName && <p>{name}</p>}
+                <Button variant="contained" onClick={handleChangeShowName}>Change show name</Button>
+            </div>
+            <Form onSubmit={handleChangeName} />
+        </>
+    );
 };
 
 export const ProfileToConnect = ({ showName, name, setName, setShowName }) => {
-  const handleChangeShowName = () => {
-    // dispatch(changeShowName);
-    setShowName();
-  };
+    const handleChangeShowName = () => {
+        // dispatch(changeShowName);
+        setShowName();
+    };
 
-  const prevShowName = usePrev(showName);
+    const prevShowName = usePrev(showName);
 
-  console.log(prevShowName, showName);
+    console.log(prevShowName, showName);
 
-  const handleChangeName = (text) => {
-    // dispatch(changeName(text));
-    setName(text);
-  };
+    const handleChangeName = (text) => {
+        // dispatch(changeName(text));
+        setName(text);
+    };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (e) {
-      console.warn(e);
-    }
-  };
-
-  return (
-    <>
-      <h3>Profile</h3>
-      <div>
-        <button onClick={handleLogout}>LOGOUT</button>
-      </div>
-      <div>
-        {showName && <span>{name}</span>}
-        <input type="checkbox" />
-        <button onClick={handleChangeShowName}>Change show name</button>
-      </div>
-      <Form onSubmit={handleChangeName} />
-    </>
-  );
+    return (
+        <>
+            <h3 className={styles.profileTitle}>Profile</h3>
+            <div className={styles.shownamebox}>
+                {showName && <p className={styles.nameshow}>{name}</p>}
+                <Button variant="contained" onClick={handleChangeShowName}>Show New Name</Button>
+            </div>
+            <div className={styles.fieldForName}>
+                <Form placeholder="Pl" onSubmit={handleChangeName} />
+            </div>
+        </>
+    );
 };
 
 const mapStateToProps = (state) => ({
-  showName: selectShowName(state),
-  name: selectName(state),
+    showName: selectShowName(state),
+    name: selectName(state),
 });
 
 const mapDispatchToProps = {
-  setShowName: () => changeShowName,
-  setName: changeName,
+    setShowName: () => changeShowName,
+    setName: changeName,
 };
 
 const ConnectedProfile = connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ProfileToConnect);
 export default ConnectedProfile;

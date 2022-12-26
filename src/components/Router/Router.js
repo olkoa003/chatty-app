@@ -10,12 +10,21 @@ import { auth } from "../../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import styles from './Router.module.css';
+import { logout } from "../../services/firebase";
 
 export const Router = () => {
     const [authed, setAuthed] = useState(false);
 
     const unauthorize = () => {
         setAuthed(false);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch (e) {
+            console.warn(e);
+        }
     };
 
     useEffect(() => {
@@ -32,25 +41,22 @@ export const Router = () => {
 
     return (
         <BrowserRouter>
-            <div class={styles.topnav}>
-                <NavLink
-                    to="/"
-                    style={({ isActive }) => ({ color: isActive ? "green" : "grey" })}
-                >
-                    home
+            <div className={styles.topnav}>
+                {authed && <div><NavLink to="/chats">
+                    Chats
                 </NavLink>
-                <NavLink
-                    style={({ isActive }) => ({ color: isActive ? "green" : "grey" })}
-                    to="/chats"
-                >
-                    chats
-                </NavLink>
-                <NavLink
-                    style={({ isActive }) => ({ color: isActive ? "green" : "grey" })}
-                    to="/profile"
-                >
-                    profile
-                </NavLink>
+                    {/* <NavLink to="/">
+                        Home
+                    </NavLink> */}
+                    <NavLink to="/profile">
+                        Profile
+                    </NavLink></div>
+                }
+                {authed && <div className={styles.logoutBlock}>
+                    <NavLink onClick={handleLogout}>
+                        Logout
+                    </NavLink>
+                </div>}
             </div>
             <Routes>
                 <Route path="/" element={<PublicRoute authed={authed} />}>
@@ -63,11 +69,13 @@ export const Router = () => {
                         element={<ConnectedProfile onLogout={unauthorize} />}
                     />
                 </Route>
-                <Route path="chats" element={<ChatList />}>
-                    <Route path=":chatId" element={<Chat />} />
+                <Route element={<PrivateRoute authed={authed} />}>
+                    <Route path="chats" element={<ChatList />}>
+                        <Route path=":chatId" element={<Chat />} />
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
                 </Route>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+            </Routes >
         </BrowserRouter>
     );
 };

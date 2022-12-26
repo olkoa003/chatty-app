@@ -4,6 +4,9 @@ import { login, signUp } from "../../services/firebase";
 import { signInWithGoogle } from "../../services/firebase";
 import styles from "./HomePage.module.css"
 import { signInWithGitHub } from "../../services/firebase";
+import Google from "@mui/icons-material/Google";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Alert from '@mui/material/Alert';
 
 export const HomePage = ({ isSignUp }) => {
     const [email, setEmail] = useState("");
@@ -48,30 +51,41 @@ export const HomePage = ({ isSignUp }) => {
 
     return (
         <>
-            <div class={styles.loginForm}>
-                <h1>{isSignUp ? "SignUp to Chatty" : "Login to chatty"}</h1>
+            <div className={styles.loginForm}>
+                <h1 className={styles.signUpLogin}>{isSignUp ? "SignUp to Chatty" : "Login to Chatty"}</h1>
                 <form onSubmit={handleSubmit}>
-                    <div class={styles.content}>
-                        <div class={styles.inputField}>
-                            <input type="email" placeholder="Email" value={email} onChange={handleChangeEmail} autocomplete="nope" required />
+                    <div className={styles.content}>
+                        <div className={styles.inputField}>
+                            <input type="email" placeholder="Email" value={email} onChange={handleChangeEmail} required />
                         </div>
-                        <div class={styles.inputField}>
-                            <input type="password" value={pass} onChange={handleChangePass} placeholder="Password" autocomplete="new-password" />
+                        <div className={styles.inputField}>
+                            <input type="password" value={pass} onChange={handleChangePass} placeholder="Password" />
                         </div>
+                        <div className={styles.action}>
+                            <button>Register</button>
+                            <button>Sign in</button>
+                        </div>
+                        {!error ? <span></span> :
+                        <Alert severity="error">
+                            {error && <span>{error}</span>}
+                        </Alert>
+                        }
                         <div>
-                            Already have an account?
+                            <h2 className={styles.headerText}>Or Login with Social Media:</h2>
+                            <button className={styles.githubBtn} onClick={signInWithGitHub}>
+                                <GitHubIcon /> Login with GitHub
+                            </button>
+                            <button className={styles.googleBtn} onClick={signInWithGoogle} >
+                                <Google /> Login with Google
+                            </button>
+                        </div>
+                        <div className={styles.alreadyAccount}>
+                            <p>Already have an account?</p>
                             <Link to={`${isSignUp ? "/" : "/signup"}`}>
                                 {!isSignUp ? "SignUp" : "Login"}
                             </Link>
                         </div>
-                        <Link href="#" class="link">Forgot Your Password?</Link>
-                        <div class={styles.action}>
-                            <button>Register</button>
-                            <button>Sign in</button>
-                            <button onClick={signInWithGoogle}>Sign in with Google</button>
-                            <button onClick={signInWithGitHub}>Sign in with GitHub</button>
-                        </div>
-                        {error && <span>{error}</span>}
+                        <Link href="#" className={styles.link}>Forgot Your Password?</Link>
                     </div>
                 </form>
             </div>

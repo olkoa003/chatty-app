@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { deleteMessage, editMessage } from "../../store/messages/actions";
 import "./MessageList.css"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const MessageList = ({ messages }) => {
     const { chatId } = useParams();
@@ -16,12 +18,16 @@ export const MessageList = ({ messages }) => {
     const handleEdit = (id) => {
         dispatch(editMessage(chatId, id, "edited"));
     };
-    const { BOT } = AUTHORS;
+    const { BOT, ME } = AUTHORS;
     return messages.map((message) => (
         <div key={message.id} className={`cmMsgText ${message.author === BOT ? 'invalid' : ''}`}>
             <Message text={message.text} author={message.author} />
-            <button onClick={() => handleDelete(message.id)}>Delete</button>
-            <button onClick={() => handleEdit(message.id)}>Edit</button>
+            {message.author === ME &&
+            <DeleteIcon onClick={() => handleDelete(message.id)} />
+            }
+            {message.author === ME &&
+            <EditIcon onClick={() => handleEdit(message.id)} />
+            }
         </div>
     ));
 };

@@ -25,7 +25,7 @@ export const Form = ({ onSubmit }) => {
     return (
         <div className={styles.chatInput}>
             <form onSubmit={handleSubmit}>
-                <input value={value} ref={textField} type="text" className={styles.chatInput2} placeholder="Send a message..." onChange={handleChange} required />
+                <input value={value} ref={textField} type="text" className={styles.chatInput2} onChange={handleChange} required />
                 <button type="submit" className={styles.chatSubmit}><SendIcon sx={{ color: '#5A5EB9' }} /></button>
             </form>
         </div>

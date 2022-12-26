@@ -2,7 +2,6 @@ import { MessageList } from "../MessageList/MessageList";
 import React, { useEffect, useRef } from 'react';
 import { Form } from "../Form/Form";
 import { AUTHORS } from "../../utils/constants";
-import CloseIcon from '@mui/icons-material/Close';
 import { Fragment } from 'react';
 import styles from "./Chat.module.css";
 import { Navigate, useParams } from "react-router";
@@ -44,7 +43,6 @@ export const Chat = () => {
       <div className={styles.chatBox}>
         <div className={styles.chatBoxHeader}>
           Chatbox
-          <span className={styles.chatBoxToggle}><CloseIcon /></span>
           <div className={styles.chatBoxBody}>
             <div className={styles.chatLogs}>
               <MessageList messages={messages[chatId]} />
