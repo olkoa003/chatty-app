@@ -1,4 +1,6 @@
 import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
+import { onValue, set } from "@firebase/database";
+import { useEffect, useState } from "react";
 import {
     changeShowName,
     changeName,
@@ -8,6 +10,7 @@ import { usePrev } from "../../utils/usePrev";
 import { Form } from "../Form/Form";
 import styles from './Profile.module.css';
 import Button from '@mui/material/Button';
+import { profileShowNameRef, getProfileNameRef, auth } from "../../services/firebase";
 
 export const Profile = () => {
     const dispatch = useDispatch();
@@ -35,20 +38,36 @@ export const Profile = () => {
     );
 };
 
-export const ProfileToConnect = ({ showName, name, setName, setShowName }) => {
+export const ProfileToConnect = () => {
+    const [name, setName] = useState("");
+    const [showName, setShowName] = useState(false);
+  
     const handleChangeShowName = () => {
-        // dispatch(changeShowName);
-        setShowName();
+      // dispatch(changeShowName);
+      // setShowName();
+      set(profileShowNameRef, !showName);
     };
-
-    const prevShowName = usePrev(showName);
-
-    console.log(prevShowName, showName);
-
+  
     const handleChangeName = (text) => {
-        // dispatch(changeName(text));
-        setName(text);
+      // dispatch(changeName(text));
+      // setName(text);
+      console.log(auth.currentUser);
+      set(getProfileNameRef(auth.currentUser.uid), text);
     };
+  
+    // useEffect(() => {
+    //   const unsubscribeName = onValue(profileNameRef, (snapshot) => {
+    //     setName(snapshot.val());
+    //   });
+    //   const unsubscribeShowName = onValue(profileShowNameRef, (snapshot) => {
+    //     setShowName(snapshot.val());
+    //   });
+  
+    //   return () => {
+    //     unsubscribeName();
+    //     unsubscribeShowName();
+    //   };
+    // }, []);
 
     return (
         <>

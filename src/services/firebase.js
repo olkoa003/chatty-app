@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref } from "firebase/database";
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -46,3 +47,18 @@ export const signInWithGitHub  = () => {
         console.log(error)
     });
 }
+
+
+export const db = getDatabase(app);
+export const profileRef = ref(db, "profile");
+export const getProfileNameRef = (userId) => ref(db, `profile/${userId}/name`);
+export const profileShowNameRef = ref(db, "profile/showName");
+export const chatsRef = ref(db, "chats");
+export const getChatsRefById = (chatId) => ref(db, `chats/${chatId}`);
+
+export const messagesRef = ref(db, "messages");
+export const getMessageListRefByChatId = (chatId) =>
+  ref(db, `messages/${chatId}/messageList`);
+export const getMessagesRefByChatId = (chatId) => ref(db, `messages/${chatId}`);
+export const getMessageRefById = (chatId, msgId) =>
+  ref(db, `messages/${chatId}/messageList/${msgId}`);
